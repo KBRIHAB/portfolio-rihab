@@ -10,7 +10,9 @@
     .hero-img { max-width: 250px; border-radius: 50%; }
     .section-title { font-weight: bold; font-size: 1.8rem; margin-top: 40px; }
     .bg-dark-blue { background-color: #002b5b; color: white; }
-    .project-card { height: 100%; white-space: pre-wrap; }
+    .project-card { background: white; border: 1px solid #dee2e6; border-radius: 0.5rem; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); margin-bottom: 20px; }
+    .project-card h5 { color: #002b5b; }
+    .project-card pre { white-space: pre-wrap; font-size: 1rem; line-height: 1.6; background-color: transparent; border: none; padding: 0; }
   </style>
 </head>
 <body>
@@ -24,7 +26,6 @@
     </div>
   </section>
 
-  <!-- À propos -->
   <section class="container py-5">
     <h2 class="section-title">À propos</h2>
     <p>
@@ -32,22 +33,183 @@
     </p>
   </section>
 
-  <!-- Projets & Expériences -->
   <section class="container py-5">
     <h2 class="section-title">Projets & Expériences</h2>
-    <div class="row g-4">
-      <div class="col-12"><div class="card p-4 project-card">
-      🌐 <strong>Projet PFE – Déploiement d’un Cloud Privé OpenStack & Migration ERP Odoo</strong>
-      <br><em>Entreprise : KADRANS (Paris, France) | Mars – Août 2025</em>
-      <br>🎯 Objectif : Déployer une infrastructure cloud privée via OpenStack (Kolla-Ansible) pour héberger Odoo, avec supervision et automatisation CI/CD.
-      <br>🛠️ Tâches réalisées : Étude des besoins, déploiement OpenStack multi-nœud, Ceph, migration Odoo, CI/CD Jenkins+Git+Ansible, supervision Prometheus/Grafana, sécurisation.
-      <br>✅ Résultats : Infrastructure stable, ERP migré avec succès, supervision en place.
-      <br>💻 Technologies : OpenStack, Kolla-Ansible, Ceph, Docker, Jenkins, Git, Ansible, Prometheus, Grafana, Odoo, OVH.
-      </div></div>
+
+    <div class="project-card">
+      <h5>🌐 Projet PFE – Déploiement d’un Cloud Privé OpenStack & Migration ERP Odoo</h5>
+      <pre>Entreprise : KADRANS (Paris, France)
+Période : Mars – Août 2025
+
+🎯 Objectif :
+Déployer une infrastructure cloud privée via OpenStack (Kolla-Ansible) pour héberger Odoo, avec supervision et automatisation CI/CD.
+
+🛠️ Tâches réalisées :
+Étude des besoins de l’entreprise et choix de l’architecture cloud.
+Déploiement multi-nœud OpenStack avec Kolla-Ansible (1 contrôleur, 2 compute).
+Installation d’un cluster Ceph pour le stockage distribué.
+Migration complète de l’ERP Odoo depuis OVH (base de données + services).
+Conteneurisation d’Odoo avec Docker.
+Automatisation des déploiements via Jenkins + Git + Ansible.
+Mise en place de la supervision avec Prometheus et Grafana.
+Sécurisation de l’environnement cloud et documentation technique.
+
+✅ Résultats :
+Infrastructure cloud stable et scalable.
+ERP Odoo migré avec succès, CI/CD fonctionnelle.
+Supervision complète et monitoring en temps réel.
+
+💻 Technologies :
+OpenStack, Kolla-Ansible, Ceph, Docker, Jenkins, Git, Ansible, Prometheus, Grafana, Odoo, OVH.</pre>
     </div>
+
+    <div class="project-card">
+      <h5>🧠 Stage – Développement IA & Extraction de Données</h5>
+      <pre>Entreprise : VAERDIA (Tunisie)
+Période : Juillet – Septembre 2024
+
+🎯 Objectif :
+Automatiser l’extraction et la classification sémantique de données PDF à l’aide de l’IA.
+
+🛠️ Tâches réalisées :
+Analyse des formats PDF à traiter.
+Extraction de texte avec pdfplumber et PyMuPDF.
+Classification automatique via l’API OpenAI.
+Développement backend (Flask, Laravel) + frontend (React.js).
+Mise en place d’un pipeline CI/CD avec Jenkins.
+Tests unitaires et qualité du code (JUnit, JaCoCo, SonarQube).
+Conteneurisation avec Docker, gestion des artefacts avec Nexus.
+
+✅ Résultats :
+Pipeline automatisé de traitement intelligent de documents.
+Plateforme web déployée avec interface claire.
+
+💻 Technologies :
+React.js, Flask, Laravel, Python, pdfplumber, PyMuPDF, API OpenAI, Jenkins, Maven, Docker, Nexus, SonarQube.</pre>
+    </div>
+
+    <div class="project-card">
+      <h5>🧾 Stage – Développement d’une Application ShortURL</h5>
+      <pre>Entreprise : CONSULTIM-IT (Sousse)
+Période : Juillet – Septembre 2023
+
+🎯 Objectif :
+Développer une application de raccourcissement d’URL sécurisée avec statistiques et extension Chrome.
+
+🛠️ Tâches réalisées :
+Conception backend avec .NET Core (Minimal APIs).
+Base SQLite sécurisée par JWT.
+Développement frontend avec Angular.
+Intégration de statistiques (clics, géolocalisation).
+Création d’une extension Chrome connectée à l’API.
+Développement du tableau de bord interactif.
+Tests fonctionnels et déploiement.
+
+✅ Résultats :
+Application opérationnelle, sécurisée et ergonomique.
+Extension Chrome fonctionnelle.
+
+💻 Technologies :
+.NET Core, Angular, SQLite, JWT, Chrome Extension, REST API.</pre>
+    </div>
+
+    <div class="project-card">
+      <h5>👩‍💼 Stage PFE – Développement d’un Système RH</h5>
+      <pre>Entreprise : AXIA Solutions (Sousse)
+Période : Janvier – Juin 2022
+
+🎯 Objectif :
+Créer un système de gestion RH complet (employés, congés, notes de frais, recrutement).
+
+🛠️ Tâches réalisées :
+Analyse des besoins RH.
+Conception du schéma SQL Server.
+Développement backend ASP.NET Core.
+Frontend React.js avec formulaires dynamiques.
+Authentification et gestion des rôles utilisateurs.
+Intégration d’un module de gestion des justificatifs.
+Déploiement et documentation.
+
+✅ Résultats :
+Plateforme RH complète livrée et testée.
+Interface sécurisée et fluide.
+
+💻 Technologies :
+ASP.NET Core, React.js, SQL Server, JWT, API REST.</pre>
+    </div>
+
+    <div class="project-card">
+      <h5>☁️ Projet académique – Infrastructure Cloud IaaS</h5>
+      <pre>Établissement : ESPRIT
+
+🎯 Objectif :
+Mettre en œuvre une infrastructure cloud IaaS complète et automatisée.
+
+🛠️ Tâches réalisées :
+Déploiement OpenStack avec 1 contrôleur, 4 compute, 1 stockage.
+Orchestration via Heat, conteneurs avec Docker.
+Intégration de Kubernetes avec Magnum.
+Supervision avec Prometheus & Grafana.
+Automatisation des tâches via Ansible.
+Documentation et test de charge.
+
+✅ Résultats :
+Infrastructure IaaS fonctionnelle avec orchestration.
+Déploiement automatisé des services cloud.
+
+💻 Technologies :
+OpenStack, Heat, Magnum, Docker, Kubernetes, Ansible, Prometheus, Grafana.</pre>
+    </div>
+
+    <div class="project-card">
+      <h5>📚 Projet académique – Application SaaS Étudiante</h5>
+      <pre>Établissement : ESPRIT
+
+🎯 Objectif :
+Développer une application SaaS pour étudiants (documents, planning, notifications…).
+
+🛠️ Tâches réalisées :
+Analyse des besoins des étudiants.
+Backend Spring Boot + base de données MySQL.
+Frontend Angular responsive.
+Authentification, espace personnel, gestion de documents.
+Hébergement sur Azure.
+Tests et présentation.
+
+✅ Résultats :
+Application web SaaS déployée et fonctionnelle.
+Interface moderne et sécurisée.
+
+💻 Technologies :
+Spring Boot, Angular, MySQL, Azure, API REST.</pre>
+    </div>
+
+    <div class="project-card">
+      <h5>🔐 Projet académique – Architecture Réseau Sécurisée</h5>
+      <pre>Établissement : ESPRIT
+
+🎯 Objectif :
+Concevoir une architecture réseau sécurisée avec segmentation et détection d'intrusions.
+
+🛠️ Tâches réalisées :
+Création d’une topologie LAN/DMZ/WAN virtualisée.
+Configuration de pfSense (NAT, firewall, VPN, DHCP).
+Mise en place d’un VPN IPSec.
+Intégration d’un IDS Snort.
+Simulations d’attaques via Kali Linux.
+Analyse réseau avec Wireshark.
+Rédaction d’un rapport de sécurité.
+
+✅ Résultats :
+Réseau sécurisé et testé face à plusieurs scénarios d’attaque.
+Rapport d’audit et recommandations validées.
+
+💻 Technologies :
+pfSense, OpenVPN, Snort, Wireshark, Kali Linux, Linux, SSH.</pre>
+    </div>
+
   </section>
 
-  <!-- Contact -->
   <section class="text-center p-5 bg-dark-blue">
     <h2 class="section-title">Contact</h2>
     <p>📧 <a href="mailto:kaibii.rihab@gmail.com" class="text-white">kaibii.rihab@gmail.com</a> | 📍 Paris, France</p>
