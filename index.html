@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rihab Kaibi | Junior Cloud & DevOps Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --primary-dark: #5b4cdb;
+            --secondary: #00cec9;
+            --accent: #fd79a8;
+            --dark: #0a0a0f;
+            --darker: #050508;
+            --light: #ffffff;
+            --gray: #a0a0a0;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --gradient-1: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            --gradient-2: linear-gradient(135deg, #00cec9, #81ecec);
+            --gradient-3: linear-gradient(135deg, #fd79a8, #e84393);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        .bg-animation {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; background: var(--darker);
+        }
+        .bg-animation::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(108, 92, 231, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 206, 201, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(253, 121, 168, 0.1) 0%, transparent 40%);
+            animation: bgPulse 10s ease-in-out infinite;
+        }
+        @keyframes bgPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+        .particle {
+            position: absolute; width: 4px; height: 4px; background: var(--primary);
+            border-radius: 50%; opacity: 0.3; animation: float 15s infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; } 90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; transition: all 0.3s ease;
+        }
+        nav.scrolled {
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+        }
+        .logo {
+            font-size: 1.5rem; font-weight: 700;
+            background: var(--gradient-1); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            color: var(--gray); text-decoration: none; font-weight: 500;
+            transition: all 0.3s ease; position: relative;
+        }
+        .nav-links a:hover { color: var(--light); }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0;
+            width: 0; height: 2px; background: var(--gradient-1); transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .menu-toggle span { width: 25px; height: 2px; background: var(--light); transition: all 0.3s ease; }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding: 0 10%; position: relative;
+        }
+        .hero-content { max-width: 700px; z-index: 1; }
+        .hero-badge {
+            display: inline-block; padding: 0.5rem 1rem; background: var(--card-bg);
+            border: 1px solid rgba(108, 92, 231, 0.3); border-radius: 50px;
+            font-size: 0.85rem; color: var(--secondary); margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease;
+        }
+        .hero-badge i { margin-right: 0.5rem; }
+        .hero h1 {
+            font-size: 3.5rem; font-weight: 700; line-height: 1.2;
+            margin-bottom: 0.5rem; animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        .hero h1 span {
+            background: var(--gradient-1); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .typing-container {
+            font-size: 1.5rem; color: var(--gray); margin-bottom: 1.5rem;
+            height: 2rem; animation: fadeInUp 0.8s ease 0.4s both;
+        }
+        .typing-text { border-right: 3px solid var(--primary); padding-right: 5px; animation: blink 0.8s infinite; }
+        @keyframes blink { 0%, 50% { border-color: var(--primary); } 51%, 100% { border-color: transparent; } }
+        .hero-description {
+            font-size: 1.1rem; color: var(--gray); margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeInUp 0.8s ease 0.8s both; }
+        .btn {
+            padding: 0.9rem 2rem; border-radius: 50px; font-weight: 600;
+            text-decoration: none; display: inline-flex; align-items: center;
+            gap: 0.5rem; transition: all 0.3s ease; cursor: pointer; border: none; font-size: 1rem;
+        }
+        .btn-primary {
+            background: var(--gradient-1); color: var(--light);
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(108, 92, 231, 0.4); }
+        .btn-secondary { background: transparent; color: var(--light); border: 2px solid rgba(255, 255, 255, 0.2); }
+        .btn-secondary:hover { border-color: var(--primary); background: rgba(108, 92, 231, 0.1); }
+
+        .hero-image { position: absolute; right: 10%; width: 400px; height: 400px; animation: fadeInRight 1s ease 0.5s both; }
+        .hero-image-container { position: relative; width: 100%; height: 100%; }
+        .hero-image img {
+            width: 100%; height: 100%; object-fit: cover;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            border: 3px solid rgba(108, 92, 231, 0.3);
+            animation: morphing 8s ease-in-out infinite;
+        }
+        @keyframes morphing {
+            0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+            50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+            75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+        }
+        .orbit { position: absolute; border: 1px dashed rgba(108, 92, 231, 0.3); border-radius: 50%; animation: rotate 20s linear infinite; }
+        .orbit-1 { width: 500px; height: 500px; top: -50px; left: -50px; }
+        .orbit-2 { width: 600px; height: 600px; top: -100px; left: -100px; animation-duration: 30s; animation-direction: reverse; }
+        .orbit-icon {
+            position: absolute; width: 40px; height: 40px; background: var(--card-bg);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .social-links { display: flex; gap: 1rem; margin-top: 2rem; animation: fadeInUp 0.8s ease 1s both; }
+        .social-links a {
+            width: 45px; height: 45px; background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gray); font-size: 1.2rem; transition: all 0.3s ease;
+        }
+        .social-links a:hover {
+            background: var(--gradient-1); color: var(--light);
+            transform: translateY(-5px); border-color: transparent;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+        .lang-btn {
+            padding: 0.4rem 0.8rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        .lang-btn:hover {
+            border-color: var(--primary);
+            color: var(--light);
+        }
+        .lang-btn.active {
+            background: var(--gradient-1);
+            border-color: transparent;
+            color: var(--light);
+        }
+
+        /* Sections */
+        section { padding: 100px 10%; position: relative; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-tag {
+            display: inline-block; padding: 0.4rem 1rem;
+            background: rgba(108, 92, 231, 0.1); border: 1px solid rgba(108, 92, 231, 0.3);
+            border-radius: 50px; font-size: 0.85rem; color: var(--primary); margin-bottom: 1rem;
+        }
+        .section-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .section-title span {
+            background: var(--gradient-1); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .section-subtitle { color: var(--gray); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        /* About */
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .about-image { position: relative; }
+        .about-image img { width: 100%; border-radius: 20px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3); }
+        .about-stats {
+            position: absolute; bottom: -30px; right: -30px; background: var(--card-bg);
+            backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px; padding: 1.5rem 2rem; display: flex; gap: 2rem;
+        }
+        .stat { text-align: center; }
+        .stat-number {
+            font-size: 2rem; font-weight: 700; background: var(--gradient-1);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .stat-label { font-size: 0.85rem; color: var(--gray); }
+        .about-text h3 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+        .about-text p { color: var(--gray); margin-bottom: 1.5rem; }
+        .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+        .highlight-item {
+            display: flex; align-items: center; gap: 0.8rem; padding: 1rem;
+            background: var(--card-bg); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .highlight-item i { color: var(--secondary); font-size: 1.2rem; }
+
+        /* Skills */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .skill-category {
+            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px; padding: 2rem; transition: all 0.3s ease;
+        }
+        .skill-category:hover {
+            transform: translateY(-10px); border-color: rgba(108, 92, 231, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .skill-category-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .skill-icon {
+            width: 50px; height: 50px; background: var(--gradient-1);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+        }
+        .skill-category h3 { font-size: 1.2rem; }
+        .skill-list { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+        .skill-tag {
+            padding: 0.5rem 1rem; background: rgba(108, 92, 231, 0.1);
+            border: 1px solid rgba(108, 92, 231, 0.2); border-radius: 50px;
+            font-size: 0.85rem; color: var(--light); transition: all 0.3s ease;
+        }
+        .skill-tag:hover { background: var(--primary); transform: scale(1.05); }
+        .skill-tag.highlight { background: var(--gradient-1); border: none; }
+
+        /* Timeline */
+        .timeline { position: relative; max-width: 1000px; margin: 0 auto; }
+        .timeline::before {
+            content: ''; position: absolute; left: 50%; transform: translateX(-50%);
+            width: 2px; height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary), var(--accent));
+        }
+        .timeline-item {
+            display: flex; justify-content: flex-end; padding-right: 50%;
+            position: relative; margin-bottom: 3rem;
+        }
+        .timeline-item:nth-child(even) { justify-content: flex-start; padding-right: 0; padding-left: 50%; }
+        .timeline-content {
+            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px; padding: 2rem; max-width: 450px;
+            position: relative; margin-right: 30px; transition: all 0.3s ease;
+        }
+        .timeline-item:nth-child(even) .timeline-content { margin-right: 0; margin-left: 30px; }
+        .timeline-content:hover {
+            transform: translateY(-5px); border-color: rgba(108, 92, 231, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .timeline-dot {
+            position: absolute; right: -41px; top: 30px; width: 20px; height: 20px;
+            background: var(--gradient-1); border-radius: 50%; border: 4px solid var(--dark);
+        }
+        .timeline-item:nth-child(even) .timeline-dot { right: auto; left: -41px; }
+        .timeline-date {
+            display: inline-block; padding: 0.3rem 0.8rem; background: rgba(108, 92, 231, 0.1);
+            border-radius: 50px; font-size: 0.8rem; color: var(--secondary); margin-bottom: 1rem;
+        }
+        .timeline-content h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .timeline-company { color: var(--primary); font-weight: 500; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .timeline-content p { color: var(--gray); font-size: 0.95rem; margin-bottom: 1rem; }
+        .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .timeline-tag { padding: 0.3rem 0.7rem; background: rgba(0, 206, 201, 0.1); border-radius: 50px; font-size: 0.75rem; color: var(--secondary); }
+
+        /* PROJECT CARDS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(108, 92, 231, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+        .project-card-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        .project-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .project-card:hover .project-card-image img {
+            transform: scale(1.1);
+        }
+        .project-card-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(10, 10, 15, 0.95) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 1.5rem;
+        }
+        .project-card:hover .project-card-overlay {
+            opacity: 1;
+        }
+        .project-card-links {
+            display: flex;
+            gap: 1rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease 0.1s;
+        }
+        .project-card:hover .project-card-links {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .project-card-link {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .project-card-link:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.5);
+        }
+        .project-card-link.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .project-card-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.4rem 1rem;
+            background: var(--gradient-1);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+        }
+        .project-card-content {
+            padding: 1.5rem;
+        }
+        .project-card-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .project-card-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .project-card-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .tech-tag {
+            padding: 0.3rem 0.7rem;
+            background: rgba(108, 92, 231, 0.15);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: var(--primary);
+        }
+
+        /* PROJECT MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            background: var(--dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.4s ease;
+        }
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(50px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal-close {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            width: 40px; height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none; border-radius: 50%;
+            color: white; font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .modal-close:hover {
+            background: var(--accent);
+            transform: rotate(90deg);
+        }
+        .modal-media {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 30px 30px 0 0;
+            position: relative;
+        }
+        .modal-media video,
+        .modal-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .modal-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .modal-carousel-inner {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+        .modal-carousel-item {
+            min-width: 100%;
+            height: 100%;
+        }
+        .modal-carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #111;
+        }
+        .modal-carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px; height: 50px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none; border-radius: 50%;
+            color: white; font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+        .modal-carousel-btn:hover { background: var(--primary); }
+        .modal-carousel-btn.prev { left: 1rem; }
+        .modal-carousel-btn.next { right: 1rem; }
+        .modal-body {
+            padding: 2.5rem;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .modal-title h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .modal-title h2 span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .modal-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .modal-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        .modal-meta-item i { color: var(--secondary); }
+        .modal-github {
+            padding: 0.8rem 1.5rem;
+            background: var(--gradient-1);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .modal-github:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
+        }
+        .modal-description {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+        .modal-description h4 {
+            color: var(--light);
+            font-size: 1.2rem;
+            margin: 2rem 0 1rem;
+        }
+        .modal-description h4:first-child { margin-top: 0; }
+        .modal-description ul {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .modal-description ul li {
+            padding: 0.6rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .modal-description ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+        .modal-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .modal-tech-tag {
+            padding: 0.5rem 1rem;
+            background: rgba(108, 92, 231, 0.15);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--primary);
+        }
+
+        /* Contact */
+        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        .contact-info h3 { font-size: 2rem; margin-bottom: 1.5rem; }
+        .contact-info p { color: var(--gray); margin-bottom: 2rem; }
+        .contact-item {
+            display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+            padding: 1.5rem; background: var(--card-bg); border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease;
+        }
+        .contact-item:hover { border-color: rgba(108, 92, 231, 0.3); transform: translateX(10px); }
+        .contact-icon {
+            width: 50px; height: 50px; background: var(--gradient-1);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+        }
+        .contact-item-content h4 { font-size: 0.9rem; color: var(--gray); margin-bottom: 0.3rem; }
+        .contact-item-content a, .contact-item-content p { color: var(--light); text-decoration: none; font-weight: 500; }
+        .contact-form {
+            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px; padding: 2.5rem;
+        }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--gray); font-size: 0.9rem; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 1rem; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px;
+            color: var(--light); font-family: 'Poppins', sans-serif; transition: all 0.3s ease;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--primary); box-shadow: 0 0 20px rgba(108, 92, 231, 0.2);
+        }
+        .form-group textarea { min-height: 150px; resize: vertical; }
+        .form-status {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        .form-status.success {
+            display: block;
+            background: rgba(0, 206, 201, 0.1);
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+        }
+        .form-status.error {
+            display: block;
+            background: rgba(253, 121, 168, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 10%; border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+        }
+        footer p { color: var(--gray); }
+        footer p span { color: var(--accent); }
+
+        /* Animations */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .animate-on-scroll.animated { opacity: 1; transform: translateY(0); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 2.8rem; }
+            .hero-image { width: 300px; height: 300px; }
+            .about-content, .contact-container { grid-template-columns: 1fr; }
+            .timeline::before { left: 20px; }
+            .timeline-item, .timeline-item:nth-child(even) { padding-left: 60px; padding-right: 0; justify-content: flex-start; }
+            .timeline-content, .timeline-item:nth-child(even) .timeline-content { margin-left: 0; margin-right: 0; }
+            .timeline-dot, .timeline-item:nth-child(even) .timeline-dot { left: 10px; right: auto; }
+            .modal-media { height: 300px; }
+        }
+        @media (max-width: 768px) {
+            nav { padding: 1rem; }
+            .nav-links {
+                position: fixed; top: 70px; left: 0; width: 100%;
+                background: rgba(10, 10, 15, 0.98); flex-direction: column;
+                align-items: center; padding: 2rem; gap: 1.5rem;
+                transform: translateY(-150%); transition: transform 0.3s ease;
+            }
+            .nav-links.active { transform: translateY(0); }
+            .menu-toggle { display: flex; }
+            .lang-switcher { margin-left: 0; margin-right: 1rem; }
+            .hero { padding: 0 5%; padding-top: 100px; }
+            .hero h1 { font-size: 2rem; }
+            .typing-container { font-size: 1.1rem; }
+            .hero-image { display: none; }
+            section { padding: 60px 5%; }
+            .section-title { font-size: 1.8rem; }
+            .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+            .about-stats { position: relative; bottom: 0; right: 0; margin-top: 2rem; }
+            footer { flex-direction: column; text-align: center; }
+            .modal-content { margin: 1rem; border-radius: 20px; }
+            .modal-media { height: 250px; border-radius: 20px 20px 0 0; }
+            .modal-body { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">&lt;RK /&gt;</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about" data-lang-fr="A propos" data-lang-en="About">A propos</a></li>
+            <li><a href="#skills" data-lang-fr="Compétences" data-lang-en="Skills">Compétences</a></li>
+            <li><a href="#experience" data-lang-fr="Expérience" data-lang-en="Experience">Expérience</a></li>
+            <li><a href="#projects" data-lang-fr="Projets" data-lang-en="Projects">Projets</a></li>
+            <li><a href="#contact" data-lang-fr="Contact" data-lang-en="Contact">Contact</a></li>
+        </ul>
+        <div class="lang-switcher">
+            <button class="lang-btn active" id="langFr" onclick="setLanguage('fr')">FR</button>
+            <button class="lang-btn" id="langEn" onclick="setLanguage('en')">EN</button>
+        </div>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge" data-lang-fr="Disponible pour opportunités" data-lang-en="Available for opportunities"><i class="fas fa-rocket"></i> <span>Disponible pour opportunités</span></div>
+            <h1 data-lang-fr="Salut, je suis" data-lang-en="Hi, I'm">Salut, je suis <span>Rihab Kaibi</span></h1>
+            <div class="typing-container"><span class="typing-text" id="typingText"></span></div>
+            <p class="hero-description" data-lang-fr="Passionnée par l'automatisation et le Cloud, je construis des infrastructures robustes et des pipelines CI/CD qui transforment les idées en produits déployés." data-lang-en="Passionate about automation and Cloud, I build robust infrastructures and CI/CD pipelines that transform ideas into deployed products.">
+                Passionnée par l'automatisation et le Cloud, je construis des infrastructures robustes
+                et des pipelines CI/CD qui transforment les idées en produits déployés.
+            </p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary" data-lang-fr="Voir mes projets" data-lang-en="View my projects"><i class="fas fa-eye"></i> <span>Voir mes projets</span></a>
+                <a href="#contact" class="btn btn-secondary" data-lang-fr="Me contacter" data-lang-en="Contact me"><i class="fas fa-paper-plane"></i> <span>Me contacter</span></a>
+            </div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/rihab-kaibi-a32731226/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/KBRIHAB/portfolio-rihab" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:kaibii.rihab@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="hero-image-container">
+                <img src="https://raw.githubusercontent.com/KBRIHAB/portfolio-rihab/main/rihab.jpg" alt="Rihab Kaibi">
+                <div class="orbit orbit-1"><div class="orbit-icon" style="top: 0; left: 50%;"><i class="fab fa-docker" style="color: #2496ED;"></i></div></div>
+                <div class="orbit orbit-2"><div class="orbit-icon" style="bottom: 0; right: 10%;"><i class="fab fa-aws" style="color: #FF9900;"></i></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header">
+            <span class="section-tag" data-lang-fr="A propos" data-lang-en="About">A propos</span>
+            <h2 class="section-title" data-lang-fr="Découvrez" data-lang-en="Discover">Découvrez <span data-lang-fr="mon parcours" data-lang-en="my journey">mon parcours</span></h2>
+            <p class="section-subtitle" data-lang-fr="Une ingénieure passionnée qui transforme les défis techniques en solutions innovantes" data-lang-en="A passionate engineer who transforms technical challenges into innovative solutions">Une ingénieure passionnée qui transforme les défis techniques en solutions innovantes</p>
+        </div>
+        <div class="about-content">
+            <div class="about-image animate-on-scroll">
+                <img src="https://raw.githubusercontent.com/KBRIHAB/portfolio-rihab/main/rihab.jpg" alt="Rihab Kaibi">
+                <div class="about-stats">
+                    <div class="stat"><div class="stat-number">4</div><div class="stat-label" data-lang-fr="Stages" data-lang-en="Internships">Stages</div></div>
+                    <div class="stat"><div class="stat-number">6+</div><div class="stat-label" data-lang-fr="Projets" data-lang-en="Projects">Projets</div></div>
+                    <div class="stat"><div class="stat-number">18</div><div class="stat-label" data-lang-fr="Jobs CI/CD" data-lang-en="CI/CD Jobs">Jobs CI/CD</div></div>
+                </div>
+            </div>
+            <div class="about-text animate-on-scroll">
+                <h3>Junior Cloud & DevOps Engineer</h3>
+                <p data-lang-fr="Diplômée en Cloud Computing et Virtualisation de l'ESPRIT (Tunisie), j'ai acquis une solide expérience à travers 4 stages enrichissants, dont mon dernier chez Kadrans à Paris où j'ai déployé une infrastructure Cloud complète avec OpenStack et Kubernetes." data-lang-en="Graduated in Cloud Computing and Virtualization from ESPRIT (Tunisia), I gained solid experience through 4 enriching internships, including my last one at Kadrans in Paris where I deployed a complete Cloud infrastructure with OpenStack and Kubernetes.">Diplômée en <strong>Cloud Computing et Virtualisation</strong> de l'ESPRIT (Tunisie), j'ai acquis une solide expérience à travers 4 stages enrichissants, dont mon dernier chez <strong>Kadrans à Paris</strong> où j'ai déployé une infrastructure Cloud complète avec OpenStack et Kubernetes.</p>
+                <p data-lang-fr="Je suis convaincue que l'automatisation et le DevOps sont la clé pour livrer des logiciels de qualité rapidement. Mon approche : &quot;Infrastructure as Code, Security as Priority, Automation as Lifestyle&quot;." data-lang-en="I am convinced that automation and DevOps are the key to delivering quality software quickly. My approach: &quot;Infrastructure as Code, Security as Priority, Automation as Lifestyle&quot;.">Je suis convaincue que l'automatisation et le DevOps sont la clé pour livrer des logiciels de qualité rapidement. Mon approche : <em>"Infrastructure as Code, Security as Priority, Automation as Lifestyle"</em>.</p>
+                <div class="about-highlights">
+                    <div class="highlight-item"><i class="fas fa-cloud"></i><span data-lang-fr="Infrastructure Cloud" data-lang-en="Cloud Infrastructure">Infrastructure Cloud</span></div>
+                    <div class="highlight-item"><i class="fas fa-cogs"></i><span>CI/CD Automation</span></div>
+                    <div class="highlight-item"><i class="fas fa-shield-alt"></i><span>DevSecOps</span></div>
+                    <div class="highlight-item"><i class="fas fa-code"></i><span>Full Stack Dev</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="section-header">
+            <span class="section-tag" data-lang-fr="Compétences" data-lang-en="Skills">Compétences</span>
+            <h2 class="section-title" data-lang-fr="Mon" data-lang-en="My">Mon <span data-lang-fr="arsenal technique" data-lang-en="technical arsenal">arsenal technique</span></h2>
+            <p class="section-subtitle" data-lang-fr="Les technologies et outils que je maîtrise" data-lang-en="The technologies and tools I master">Les technologies et outils que je maîtrise</p>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-category animate-on-scroll">
+                <div class="skill-category-header">
+                    <div class="skill-icon"><i class="fas fa-cloud"></i></div>
+                    <h3 data-lang-fr="Cloud & Virtualisation" data-lang-en="Cloud & Virtualization">Cloud & Virtualisation</h3>
+                </div>
+                <div class="skill-list">
+                    <span class="skill-tag highlight">OpenStack</span>
+                    <span class="skill-tag">Keystone</span>
+                    <span class="skill-tag">Nova</span>
+                    <span class="skill-tag">Neutron</span>
+                    <span class="skill-tag">Cinder</span>
+                    <span class="skill-tag">Magnum</span>
+                    <span class="skill-tag">Heat</span>
+                    <span class="skill-tag">AWS</span>
+                    <span class="skill-tag">Azure</span>
+                    <span class="skill-tag">VMware</span>
+                    <span class="skill-tag">KVM</span>
+                    <span class="skill-tag">Proxmox</span>
+                </div>
+            </div>
+            <div class="skill-category animate-on-scroll">
+                <div class="skill-category-header">
+                    <div class="skill-icon"><i class="fas fa-dharmachakra"></i></div>
+                    <h3 data-lang-fr="Orchestration & Conteneurs" data-lang-en="Orchestration & Containers">Orchestration & Conteneurs</h3>
+                </div>
+                <div class="skill-list">
+                    <span class="skill-tag highlight">Kubernetes</span>
+                    <span class="skill-tag highlight">Docker</span>
+                    <span class="skill-tag">Helm</span>
+                    <span class="skill-tag">OpenStack Magnum</span>
+                    <span class="skill-tag">Calico CNI</span>
+                    <span class="skill-tag">containerd</span>
+                </div>
+            </div>
+            <div class="skill-category animate-on-scroll">
+                <div class="skill-category-header">
+                    <div class="skill-icon"><i class="fas fa-infinity"></i></div>
+                    <h3 data-lang-fr="DevOps & Automatisation" data-lang-en="DevOps & Automation">DevOps & Automatisation</h3>
+                </div>
+                <div class="skill-list">
+                    <span class="skill-tag highlight">Ansible</span>
+                    <span class="skill-tag highlight">Kolla-Ansible</span>
+                    <span class="skill-tag">Terraform</span>
+                    <span class="skill-tag">Jenkins</span>
+                    <span class="skill-tag">GitLab CI/CD</span>
+                    <span class="skill-tag">GitHub Actions</span>
+                </div>
+            </div>
+            <div class="skill-category animate-on-scroll">
+                <div class="skill-category-header">
+                    <div class="skill-icon"><i class="fas fa-check-circle"></i></div>
+                    <h3 data-lang-fr="CI/CD & Qualité" data-lang-en="CI/CD & Quality">CI/CD & Qualité</h3>
+                </div>
+                <div class="skill-list">
+                    <span class="skill-tag highlight">Git</span>
+                    <span class="skill-tag">Maven</span>
+                    <span class="skill-tag">Nexus</span>
+                    <span class="skill-tag">SonarQube</span>
+                    <span class="skill-tag">JUnit</span>
+                    <span class="skill-tag">JaCoCo</span>
+                    <span class="skill-tag">Ruff</span>
+                    <span class="skill-tag">Pylint</span>
+                </div>
+            </div>
+            <div class="skill-category animate-on-scroll">
+                <div class="skill-category-header">
+                    <div class="skill-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3 data-lang-fr="Sécurité DevSecOps" data-lang-en="DevSecOps Security">Sécurité DevSecOps</h3>
+                </div>
+                <div class="skill-list">
+                    <span class="skill-tag highlight">Bandit (SAST)</span>
+                    <span class="skill-tag highlight">Trivy</span>
+                    <span class="skill-tag">Safety (SCA)</span>
+                    <span class="skill-tag">WAF</span>
+                    <span class="skill-tag">IDS/IPS</span>
+                    <span class="skill-tag">Firewall</span>
+                    <span class="skill-tag">PKI</span>
+                    <span class="skill-tag">WireGuard VPN</span>
+                </div>
+            </div>
+            <div class="skill-category animate-on-scroll">
+                <div class="skill-category-header">
+                    <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3 data-lang-fr="Monitoring & Observabilité" data-lang-en="Monitoring & Observability">Monitoring & Observabilité</h3>
+                </div>
+                <div class="skill-list">
+                    <span class="skill-tag highlight">Prometheus</span>
+                    <span class="skill-tag highlight">Grafana</span>
+                    <span class="skill-tag">Node Exporter</span>
+                    <span class="skill-tag">PostgreSQL Exporter</span>
+                    <span class="skill-tag">Nagios</span>
+                    <span class="skill-tag">Splunk</span>
+                </div>
+            </div>
+            <div class="skill-category animate-on-scroll">
+                <div class="skill-category-header">
+                    <div class="skill-icon"><i class="fas fa-code"></i></div>
+                    <h3 data-lang-fr="Langages de Programmation" data-lang-en="Programming Languages">Langages de Programmation</h3>
+                </div>
+                <div class="skill-list">
+                    <span class="skill-tag highlight">Python</span>
+                    <span class="skill-tag highlight">Java</span>
+                    <span class="skill-tag">C#</span>
+                    <span class="skill-tag">PHP</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">TypeScript</span>
+                    <span class="skill-tag">Bash</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">PL/SQL</span>
+                </div>
+            </div>
+            <div class="skill-category animate-on-scroll">
+                <div class="skill-category-header">
+                    <div class="skill-icon"><i class="fas fa-layer-group"></i></div>
+                    <h3>Frameworks & ORM</h3>
+                </div>
+                <div class="skill-list">
+                    <span class="skill-tag highlight">Odoo 17</span>
+                    <span class="skill-tag">Spring Boot</span>
+                    <span class="skill-tag">.NET Core</span>
+                    <span class="skill-tag">Angular</span>
+                    <span class="skill-tag">React.js</span>
+                    <span class="skill-tag">Flask</span>
+                    <span class="skill-tag">Laravel</span>
+                    <span class="skill-tag">Symfony</span>
+                    <span class="skill-tag">Entity Framework</span>
+                </div>
+            </div>
+            <div class="skill-category animate-on-scroll">
+                <div class="skill-category-header">
+                    <div class="skill-icon"><i class="fas fa-database"></i></div>
+                    <h3 data-lang-fr="Bases de Données" data-lang-en="Databases">Bases de Données</h3>
+                </div>
+                <div class="skill-list">
+                    <span class="skill-tag highlight">PostgreSQL</span>
+                    <span class="skill-tag">MySQL</span>
+                    <span class="skill-tag">SQL Server</span>
+                    <span class="skill-tag">Oracle</span>
+                    <span class="skill-tag">SQLite</span>
+                    <span class="skill-tag">Redis</span>
+                </div>
+            </div>
+            <div class="skill-category animate-on-scroll">
+                <div class="skill-category-header">
+                    <div class="skill-icon"><i class="fas fa-server"></i></div>
+                    <h3 data-lang-fr="Systèmes & Réseaux" data-lang-en="Systems & Networks">Systèmes & Réseaux</h3>
+                </div>
+                <div class="skill-list">
+                    <span class="skill-tag highlight">Linux</span>
+                    <span class="skill-tag">Ubuntu</span>
+                    <span class="skill-tag">CentOS</span>
+                    <span class="skill-tag">Debian</span>
+                    <span class="skill-tag">Windows Server</span>
+                    <span class="skill-tag">pfSense</span>
+                    <span class="skill-tag">VPN</span>
+                    <span class="skill-tag">Active Directory</span>
+                    <span class="skill-tag">DNS</span>
+                    <span class="skill-tag">DHCP</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="section-header">
+            <span class="section-tag" data-lang-fr="Expérience" data-lang-en="Experience">Expérience</span>
+            <h2 class="section-title" data-lang-fr="Mon" data-lang-en="My">Mon <span data-lang-fr="parcours professionnel" data-lang-en="professional journey">parcours professionnel</span></h2>
+            <p class="section-subtitle" data-lang-fr="4 stages enrichissants qui ont forgé mes compétences" data-lang-en="4 enriching internships that shaped my skills">4 stages enrichissants qui ont forgé mes compétences</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item animate-on-scroll">
+                <div class="timeline-content">
+                    <span class="timeline-date" data-lang-fr="Mars - Septembre 2025" data-lang-en="March - September 2025"><i class="fas fa-calendar-alt"></i> <span>Mars - Septembre 2025</span></span>
+                    <h3 data-lang-fr="Stage PFE - Cloud & ERP Engineer" data-lang-en="Final Year Internship - Cloud & ERP Engineer">Stage PFE - Cloud & ERP Engineer</h3>
+                    <div class="timeline-company"><i class="fas fa-building"></i> Kadrans, Paris (France)</div>
+                    <p data-lang-fr="Déploiement d'une infrastructure IaaS avec OpenStack et Kubernetes pour héberger Odoo 17. Pipeline GitLab CI/CD avec 18 jobs." data-lang-en="Deployment of an IaaS infrastructure with OpenStack and Kubernetes to host Odoo 17. GitLab CI/CD pipeline with 18 jobs.">Déploiement d'une infrastructure IaaS avec OpenStack et Kubernetes pour héberger Odoo 17. Pipeline GitLab CI/CD avec 18 jobs.</p>
+                    <div class="timeline-tags">
+                        <span class="timeline-tag">OpenStack</span>
+                        <span class="timeline-tag">Kubernetes</span>
+                        <span class="timeline-tag">GitLab CI/CD</span>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item animate-on-scroll">
+                <div class="timeline-content">
+                    <span class="timeline-date" data-lang-fr="Juillet - Septembre 2024" data-lang-en="July - September 2024"><i class="fas fa-calendar-alt"></i> <span>Juillet - Septembre 2024</span></span>
+                    <h3 data-lang-fr="Stage - AI & Data Extraction" data-lang-en="Internship - AI & Data Extraction">Stage - AI & Data Extraction</h3>
+                    <div class="timeline-company"><i class="fas fa-building"></i> Vaerdia, Tunisie</div>
+                    <p data-lang-fr="Application d'extraction de données depuis des PDF architecturaux avec IA et OpenAI API." data-lang-en="Data extraction application from architectural PDFs with AI and OpenAI API.">Application d'extraction de données depuis des PDF architecturaux avec IA et OpenAI API.</p>
+                    <div class="timeline-tags">
+                        <span class="timeline-tag">Python</span>
+                        <span class="timeline-tag">OpenAI API</span>
+                        <span class="timeline-tag">React</span>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item animate-on-scroll">
+                <div class="timeline-content">
+                    <span class="timeline-date" data-lang-fr="Juillet - Septembre 2023" data-lang-en="July - September 2023"><i class="fas fa-calendar-alt"></i> <span>Juillet - Septembre 2023</span></span>
+                    <h3 data-lang-fr="Stage - Full Stack Developer" data-lang-en="Internship - Full Stack Developer">Stage - Full Stack Developer</h3>
+                    <div class="timeline-company"><i class="fas fa-building"></i> Consultim-IT, Sousse</div>
+                    <p data-lang-fr="Application ShortURL avec dashboard analytique et extension Chrome." data-lang-en="ShortURL application with analytical dashboard and Chrome extension.">Application ShortURL avec dashboard analytique et extension Chrome.</p>
+                    <div class="timeline-tags">
+                        <span class="timeline-tag">.NET Core</span>
+                        <span class="timeline-tag">Angular</span>
+                        <span class="timeline-tag">SQL Server</span>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item animate-on-scroll">
+                <div class="timeline-content">
+                    <span class="timeline-date" data-lang-fr="Janvier - Juin 2022" data-lang-en="January - June 2022"><i class="fas fa-calendar-alt"></i> <span>Janvier - Juin 2022</span></span>
+                    <h3 data-lang-fr="Stage PFE - System Developer" data-lang-en="Final Year Internship - System Developer">Stage PFE - System Developer</h3>
+                    <div class="timeline-company"><i class="fas fa-building"></i> Axia Solutions, Sousse</div>
+                    <p data-lang-fr="Système d'information RH complet avec gestion employés, absences et recrutement." data-lang-en="Complete HR information system with employee management, absences and recruitment.">Système d'information RH complet avec gestion employés, absences et recrutement.</p>
+                    <div class="timeline-tags">
+                        <span class="timeline-tag">ASP.NET Core</span>
+                        <span class="timeline-tag">React</span>
+                        <span class="timeline-tag">SQL Server</span>
+                    </div>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="section-header">
+            <span class="section-tag" data-lang-fr="Projets" data-lang-en="Projects">Projets</span>
+            <h2 class="section-title" data-lang-fr="Mes" data-lang-en="My">Mes <span data-lang-fr="réalisations" data-lang-en="achievements">réalisations</span></h2>
+            <p class="section-subtitle" data-lang-fr="Cliquez sur l'œil pour voir les détails de chaque projet" data-lang-en="Click the eye icon to see the details of each project">Cliquez sur l'œil pour voir les détails de chaque projet</p>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Project 1: PFE Kadrans -->
+            <div class="project-card animate-on-scroll">
+                <div class="project-card-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%231a1a2e' width='400' height='200'/%3E%3Ctext x='200' y='90' fill='%236c5ce7' font-size='50' text-anchor='middle'%3E☁️%3C/text%3E%3Ctext x='200' y='130' fill='%23888' font-size='14' text-anchor='middle'%3EOpenStack + Kubernetes%3C/text%3E%3C/svg%3E" alt="PFE Kadrans">
+                    <span class="project-card-badge" data-lang-fr="Stage PFE" data-lang-en="Final Year Internship">Stage PFE</span>
+                    <div class="project-card-overlay">
+                        <div class="project-card-links">
+                            <div class="project-card-link" onclick="openModal('project-pfe')" data-lang-title-fr="Voir le projet" data-lang-title-en="View project" title="Voir le projet">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <h3 data-lang-fr="Infrastructure Cloud IaaS & ERP Odoo 17" data-lang-en="Cloud IaaS Infrastructure & Odoo 17 ERP">Infrastructure Cloud IaaS & ERP Odoo 17</h3>
+                    <p data-lang-fr="Déploiement d'une infrastructure Cloud privée complète pour héberger l'ERP Odoo 17 avec pipeline CI/CD." data-lang-en="Deployment of a complete private Cloud infrastructure to host Odoo 17 ERP with CI/CD pipeline.">Déploiement d'une infrastructure Cloud privée complète pour héberger l'ERP Odoo 17 avec pipeline CI/CD.</p>
+                    <div class="project-card-tech">
+                        <span class="tech-tag">OpenStack</span>
+                        <span class="tech-tag">Kubernetes</span>
+                        <span class="tech-tag">GitLab CI/CD</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: AI Extraction -->
+            <div class="project-card animate-on-scroll">
+                <div class="project-card-image">
+                    <img src="https://raw.githubusercontent.com/KBRIHAB/portfolio-rihab/main/1.png" alt="AI Extraction">
+                    <span class="project-card-badge" data-lang-fr="Stage" data-lang-en="Internship">Stage</span>
+                    <div class="project-card-overlay">
+                        <div class="project-card-links">
+                            <div class="project-card-link" onclick="openModal('project-ai')" title="Voir le projet">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <h3 data-lang-fr="Extraction IA de Documents" data-lang-en="AI Document Extraction">Extraction IA de Documents</h3>
+                    <p data-lang-fr="Système intelligent d'extraction de données depuis des PDF architecturaux avec OpenAI API." data-lang-en="Intelligent data extraction system from architectural PDFs with OpenAI API.">Système intelligent d'extraction de données depuis des PDF architecturaux avec OpenAI API.</p>
+                    <div class="project-card-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">OpenAI</span>
+                        <span class="tech-tag">React</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3: DevOps Pipeline -->
+            <div class="project-card animate-on-scroll">
+                <div class="project-card-image">
+                    <img src="https://raw.githubusercontent.com/KBRIHAB/portfolio-rihab/main/D11.jpeg" alt="DevOps Pipeline">
+                    <span class="project-card-badge" data-lang-fr="Académique" data-lang-en="Academic">Académique</span>
+                    <div class="project-card-overlay">
+                        <div class="project-card-links">
+                            <div class="project-card-link" onclick="openModal('project-devops')" title="Voir le projet">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <h3 data-lang-fr="Pipeline DevSecOps Complet" data-lang-en="Complete DevSecOps Pipeline">Pipeline DevSecOps Complet</h3>
+                    <p data-lang-fr="Pipeline Jenkins end-to-end avec SonarQube, Trivy et déploiement Docker automatisé." data-lang-en="End-to-end Jenkins pipeline with SonarQube, Trivy and automated Docker deployment.">Pipeline Jenkins end-to-end avec SonarQube, Trivy et déploiement Docker automatisé.</p>
+                    <div class="project-card-tech">
+                        <span class="tech-tag">Jenkins</span>
+                        <span class="tech-tag">SonarQube</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4: SaaS Azure -->
+            <div class="project-card animate-on-scroll">
+                <div class="project-card-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%231a1a2e' width='400' height='200'/%3E%3Ctext x='200' y='90' fill='%230078D4' font-size='50' text-anchor='middle'%3E☁️%3C/text%3E%3Ctext x='200' y='130' fill='%23888' font-size='14' text-anchor='middle'%3EAzure SaaS App%3C/text%3E%3C/svg%3E" alt="SaaS Azure">
+                    <span class="project-card-badge" data-lang-fr="Académique" data-lang-en="Academic">Académique</span>
+                    <div class="project-card-overlay">
+                        <div class="project-card-links">
+                            <div class="project-card-link" onclick="openModal('project-saas')" title="Voir le projet">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <h3 data-lang-fr="Application SaaS sur Azure" data-lang-en="SaaS Application on Azure">Application SaaS sur Azure</h3>
+                    <p data-lang-fr="Application multi-tenant sur Azure avec Spring Boot et Angular." data-lang-en="Multi-tenant application on Azure with Spring Boot and Angular.">Application multi-tenant sur Azure avec Spring Boot et Angular.</p>
+                    <div class="project-card-tech">
+                        <span class="tech-tag">Azure</span>
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">Angular</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5: ShortURL -->
+            <div class="project-card animate-on-scroll">
+                <div class="project-card-image">
+                    <img src="https://raw.githubusercontent.com/KBRIHAB/portfolio-rihab/main/C1.png" alt="ShortURL">
+                    <span class="project-card-badge" data-lang-fr="Stage" data-lang-en="Internship">Stage</span>
+                    <div class="project-card-overlay">
+                        <div class="project-card-links">
+                            <div class="project-card-link" onclick="openModal('project-url')" title="Voir le projet">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <h3 data-lang-fr="ShortURL + Extension Chrome" data-lang-en="ShortURL + Chrome Extension">ShortURL + Extension Chrome</h3>
+                    <p data-lang-fr="Service de raccourcissement d'URL avec analytics temps réel et extension navigateur." data-lang-en="URL shortening service with real-time analytics and browser extension.">Service de raccourcissement d'URL avec analytics temps réel et extension navigateur.</p>
+                    <div class="project-card-tech">
+                        <span class="tech-tag">.NET Core</span>
+                        <span class="tech-tag">Angular</span>
+                        <span class="tech-tag">Chrome</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 6: HR System -->
+            <div class="project-card animate-on-scroll">
+                <div class="project-card-image">
+                    <img src="https://raw.githubusercontent.com/KBRIHAB/portfolio-rihab/main/A1.png" alt="HR System">
+                    <span class="project-card-badge" data-lang-fr="Stage PFE" data-lang-en="Final Year Internship">Stage PFE</span>
+                    <div class="project-card-overlay">
+                        <div class="project-card-links">
+                            <div class="project-card-link" onclick="openModal('project-hr')" title="Voir le projet">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card-content">
+                    <h3 data-lang-fr="Système d'Information RH" data-lang-en="HR Information System">Système d'Information RH</h3>
+                    <p data-lang-fr="SIRH complet avec gestion employés, absences, recrutement et évaluations." data-lang-en="Complete HRIS with employee management, absences, recruitment and evaluations.">SIRH complet avec gestion employés, absences, recrutement et évaluations.</p>
+                    <div class="project-card-tech">
+                        <span class="tech-tag">ASP.NET Core</span>
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">SQL Server</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modals -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-content" id="modal-content">
+            <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <div class="modal-media" id="modal-media"></div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header">
+            <span class="section-tag" data-lang-fr="Contact" data-lang-en="Contact">Contact</span>
+            <h2 class="section-title" data-lang-fr="Travaillons" data-lang-en="Let's work">Travaillons <span data-lang-fr="ensemble" data-lang-en="together">ensemble</span></h2>
+            <p class="section-subtitle" data-lang-fr="Je suis ouverte aux opportunités en Cloud & DevOps" data-lang-en="I am open to opportunities in Cloud & DevOps">Je suis ouverte aux opportunités en Cloud & DevOps</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info animate-on-scroll">
+                <h3 data-lang-fr="Discutons de votre projet" data-lang-en="Let's discuss your project">Discutons de votre projet</h3>
+                <p data-lang-fr="Je suis actuellement à la recherche d'opportunités en tant que Junior Cloud & DevOps Engineer. N'hésitez pas à me contacter!" data-lang-en="I am currently looking for opportunities as a Junior Cloud & DevOps Engineer. Feel free to contact me!">Je suis actuellement à la recherche d'opportunités en tant que Junior Cloud & DevOps Engineer. N'hésitez pas à me contacter!</p>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-item-content">
+                        <h4>Email</h4>
+                        <a href="mailto:kaibii.rihab@gmail.com">kaibii.rihab@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                    <div class="contact-item-content">
+                        <h4 data-lang-fr="Téléphone" data-lang-en="Phone">Téléphone</h4>
+                        <p>+216 95 808 959</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="contact-item-content">
+                        <h4 data-lang-fr="Localisation" data-lang-en="Location">Localisation</h4>
+                        <p data-lang-fr="Sousse, Tunisie (Mobile)" data-lang-en="Sousse, Tunisia (Mobile)">Sousse, Tunisie (Mobile)</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
+                    <div class="contact-item-content">
+                        <h4>LinkedIn</h4>
+                        <a href="https://www.linkedin.com/in/rihab-kaibi-a32731226/" target="_blank">linkedin.com/in/rihab-kaibi</a>
+                    </div>
+                </div>
+            </div>
+            <form class="contact-form animate-on-scroll" id="contactForm">
+                <div class="form-status" id="formStatus"></div>
+                <div class="form-group">
+                    <label for="name" data-lang-fr="Nom complet" data-lang-en="Full name">Nom complet</label>
+                    <input type="text" id="name" name="name" required data-lang-placeholder-fr="Votre nom" data-lang-placeholder-en="Your name" placeholder="Votre nom">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required data-lang-placeholder-fr="votre@email.com" data-lang-placeholder-en="your@email.com" placeholder="votre@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="subject" data-lang-fr="Sujet" data-lang-en="Subject">Sujet</label>
+                    <input type="text" id="subject" name="subject" required data-lang-placeholder-fr="Sujet de votre message" data-lang-placeholder-en="Subject of your message" placeholder="Sujet de votre message">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required data-lang-placeholder-fr="Votre message..." data-lang-placeholder-en="Your message..." placeholder="Votre message..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" id="submitBtn" style="width: 100%;" data-lang-fr="Envoyer le message" data-lang-en="Send message">
+                    <i class="fas fa-paper-plane"></i> <span>Envoyer le message</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p data-lang-fr="© 2025 Rihab Kaibi. Créé avec ❤ et beaucoup de ☕" data-lang-en="© 2025 Rihab Kaibi. Made with ❤ and lots of ☕">© 2025 Rihab Kaibi. Créé avec <span>❤</span> et beaucoup de ☕</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/rihab-kaibi-a32731226/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/KBRIHAB/portfolio-rihab" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="mailto:kaibii.rihab@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Current language
+        let currentLang = 'fr';
+
+        // Typing texts for both languages
+        const typingTextsLang = {
+            fr: ['Junior Cloud Engineer', 'DevOps Enthusiast', 'Kubernetes Lover', 'CI/CD Architect', 'Infrastructure as Code'],
+            en: ['Junior Cloud Engineer', 'DevOps Enthusiast', 'Kubernetes Lover', 'CI/CD Architect', 'Infrastructure as Code']
+        };
+
+        // Projects Data with translations
+        const projectsData = {
+            'project-pfe': {
+                fr: {
+                    title: 'Infrastructure Cloud IaaS & ERP Odoo 17',
+                    type: 'Stage PFE',
+                    description: `
+                        <h4>Le Défi</h4>
+                        <p>Déployer une infrastructure Cloud privée complète pour héberger l'ERP Odoo 17 avec haute disponibilité, automatisation CI/CD et monitoring avancé.</p>
+                        <h4>Ma Solution</h4>
+                        <ul>
+                            <li><strong>Infrastructure OpenStack</strong> multi-nœuds déployée avec Kolla-Ansible (Nova, Neutron, Cinder, Glance, Horizon)</li>
+                            <li><strong>Cluster Kubernetes HA</strong> pour l'orchestration des conteneurs Odoo</li>
+                            <li><strong>Pipeline GitLab CI/CD</strong> avec 18 jobs : lint, tests unitaires, analyse SonarQube, scan Trivy, build Docker, déploiement staging/production</li>
+                            <li><strong>Monitoring complet</strong> avec Prometheus, Grafana et alerting automatisé</li>
+                            <li><strong>Développement Odoo 17</strong> : modules personnalisés en Python pour la gestion métier</li>
+                        </ul>
+                        <h4>Résultats</h4>
+                        <ul>
+                            <li>Réduction de 70% du temps de déploiement grâce à l'automatisation</li>
+                            <li>99.9% de disponibilité avec l'architecture HA Kubernetes</li>
+                            <li>Détection proactive des vulnérabilités avec DevSecOps</li>
+                        </ul>
+                    `
+                },
+                en: {
+                    title: 'Cloud IaaS Infrastructure & Odoo 17 ERP',
+                    type: 'Final Year Internship',
+                    description: `
+                        <h4>The Challenge</h4>
+                        <p>Deploy a complete private Cloud infrastructure to host Odoo 17 ERP with high availability, CI/CD automation and advanced monitoring.</p>
+                        <h4>My Solution</h4>
+                        <ul>
+                            <li><strong>Multi-node OpenStack Infrastructure</strong> deployed with Kolla-Ansible (Nova, Neutron, Cinder, Glance, Horizon)</li>
+                            <li><strong>HA Kubernetes Cluster</strong> for Odoo container orchestration</li>
+                            <li><strong>GitLab CI/CD Pipeline</strong> with 18 jobs: lint, unit tests, SonarQube analysis, Trivy scan, Docker build, staging/production deployment</li>
+                            <li><strong>Complete Monitoring</strong> with Prometheus, Grafana and automated alerting</li>
+                            <li><strong>Odoo 17 Development</strong>: custom Python modules for business management</li>
+                        </ul>
+                        <h4>Results</h4>
+                        <ul>
+                            <li>70% reduction in deployment time through automation</li>
+                            <li>99.9% availability with Kubernetes HA architecture</li>
+                            <li>Proactive vulnerability detection with DevSecOps</li>
+                        </ul>
+                    `
+                },
+                company: 'Kadrans, Paris',
+                year: '2025',
+                media: { type: 'video', src: 'video-pfe.mp4' },
+                tech: ['OpenStack', 'Kubernetes', 'Docker', 'GitLab CI/CD', 'Odoo 17', 'Python', 'Helm', 'Prometheus', 'Grafana', 'Kolla-Ansible']
+            },
+            'project-ai': {
+                fr: {
+                    title: 'Extraction IA de Documents Architecturaux',
+                    type: 'Stage d\'été',
+                    description: `
+                        <h4>Le Défi</h4>
+                        <p>Automatiser l'extraction d'informations structurées à partir de documents PDF architecturaux complexes (plans, devis, spécifications techniques).</p>
+                        <h4>Ma Solution</h4>
+                        <ul>
+                            <li><strong>Backend Python/Flask</strong> avec traitement asynchrone des documents</li>
+                            <li><strong>Extraction PDF</strong> multi-couches avec pdfplumber et PyMuPDF pour texte et images</li>
+                            <li><strong>Intelligence Artificielle</strong> via OpenAI API pour comprendre le contexte et extraire les données pertinentes</li>
+                            <li><strong>Interface React</strong> intuitive pour upload, visualisation et export des données</li>
+                            <li><strong>API REST</strong> documentée pour intégration avec d'autres systèmes</li>
+                        </ul>
+                        <h4>Résultats</h4>
+                        <ul>
+                            <li>Précision d'extraction de 92% sur les documents testés</li>
+                            <li>Réduction de 80% du temps de saisie manuelle</li>
+                            <li>Support multi-format (PDF, images scannées)</li>
+                        </ul>
+                    `
+                },
+                en: {
+                    title: 'AI Architectural Document Extraction',
+                    type: 'Summer Internship',
+                    description: `
+                        <h4>The Challenge</h4>
+                        <p>Automate the extraction of structured information from complex architectural PDF documents (plans, quotes, technical specifications).</p>
+                        <h4>My Solution</h4>
+                        <ul>
+                            <li><strong>Python/Flask Backend</strong> with asynchronous document processing</li>
+                            <li><strong>Multi-layer PDF Extraction</strong> with pdfplumber and PyMuPDF for text and images</li>
+                            <li><strong>Artificial Intelligence</strong> via OpenAI API to understand context and extract relevant data</li>
+                            <li><strong>Intuitive React Interface</strong> for upload, visualization and data export</li>
+                            <li><strong>Documented REST API</strong> for integration with other systems</li>
+                        </ul>
+                        <h4>Results</h4>
+                        <ul>
+                            <li>92% extraction accuracy on tested documents</li>
+                            <li>80% reduction in manual data entry time</li>
+                            <li>Multi-format support (PDF, scanned images)</li>
+                        </ul>
+                    `
+                },
+                company: 'Vaerdia, Tunisie',
+                year: '2024',
+                media: { type: 'carousel', images: ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png'] },
+                tech: ['Python', 'Flask', 'OpenAI API', 'pdfplumber', 'PyMuPDF', 'React', 'REST API']
+            },
+            'project-devops': {
+                fr: {
+                    title: 'Pipeline DevSecOps Complet',
+                    type: 'Projet Académique',
+                    description: `
+                        <h4>Le Défi</h4>
+                        <p>Mettre en place un pipeline CI/CD complet intégrant les pratiques DevSecOps pour une application Spring Boot avec déploiement automatisé.</p>
+                        <h4>Ma Solution</h4>
+                        <ul>
+                            <li><strong>Pipeline Jenkins</strong> multi-stage avec intégration continue</li>
+                            <li><strong>Analyse de code</strong> statique avec SonarQube (quality gates)</li>
+                            <li><strong>Scan de sécurité</strong> des dépendances et images Docker avec Trivy</li>
+                            <li><strong>Tests automatisés</strong> : unitaires, intégration, performance avec JMeter</li>
+                            <li><strong>Conteneurisation</strong> et push vers registry Docker privé</li>
+                            <li><strong>Déploiement</strong> automatisé sur environnements staging et production</li>
+                        </ul>
+                        <h4>Résultats</h4>
+                        <ul>
+                            <li>Pipeline end-to-end en moins de 15 minutes</li>
+                            <li>Couverture de tests supérieure à 80%</li>
+                            <li>Zéro vulnérabilité critique en production</li>
+                        </ul>
+                    `
+                },
+                en: {
+                    title: 'Complete DevSecOps Pipeline',
+                    type: 'Academic Project',
+                    description: `
+                        <h4>The Challenge</h4>
+                        <p>Set up a complete CI/CD pipeline integrating DevSecOps practices for a Spring Boot application with automated deployment.</p>
+                        <h4>My Solution</h4>
+                        <ul>
+                            <li><strong>Multi-stage Jenkins Pipeline</strong> with continuous integration</li>
+                            <li><strong>Static Code Analysis</strong> with SonarQube (quality gates)</li>
+                            <li><strong>Security Scanning</strong> of dependencies and Docker images with Trivy</li>
+                            <li><strong>Automated Testing</strong>: unit, integration, performance with JMeter</li>
+                            <li><strong>Containerization</strong> and push to private Docker registry</li>
+                            <li><strong>Automated Deployment</strong> to staging and production environments</li>
+                        </ul>
+                        <h4>Results</h4>
+                        <ul>
+                            <li>End-to-end pipeline in under 15 minutes</li>
+                            <li>Test coverage above 80%</li>
+                            <li>Zero critical vulnerabilities in production</li>
+                        </ul>
+                    `
+                },
+                company: 'ESPRIT',
+                year: '2024',
+                media: { type: 'carousel', images: ['D11.jpeg', 'D21.jpeg', 'D31.jpeg', 'D41.jpeg', 'D51.jpeg', 'D61.jpeg', 'D71.jpeg'] },
+                tech: ['Jenkins', 'SonarQube', 'Trivy', 'Docker', 'Spring Boot', 'JMeter', 'Nexus']
+            },
+            'project-saas': {
+                fr: {
+                    title: 'Application SaaS Étudiante sur Azure',
+                    type: 'Projet Académique',
+                    description: `
+                        <h4>Le Défi</h4>
+                        <p>Concevoir et déployer une application SaaS multi-tenant sur Azure pour la gestion de la vie étudiante (cours, emplois du temps, notes).</p>
+                        <h4>Ma Solution</h4>
+                        <ul>
+                            <li><strong>Architecture microservices</strong> avec Spring Boot pour le backend</li>
+                            <li><strong>Frontend Angular</strong> responsive avec Material Design</li>
+                            <li><strong>Base de données MySQL</strong> sur Azure Database for MySQL</li>
+                            <li><strong>Déploiement Azure</strong> : App Service, Azure Container Registry, Azure DevOps</li>
+                            <li><strong>Authentification</strong> sécurisée avec Azure AD B2C</li>
+                            <li><strong>CI/CD</strong> avec Azure Pipelines pour déploiement automatique</li>
+                        </ul>
+                        <h4>Résultats</h4>
+                        <ul>
+                            <li>Application scalable supportant plusieurs établissements</li>
+                            <li>Temps de réponse API inférieur à 200ms</li>
+                            <li>Interface intuitive pour étudiants et administrateurs</li>
+                        </ul>
+                    `
+                },
+                en: {
+                    title: 'Student SaaS Application on Azure',
+                    type: 'Academic Project',
+                    description: `
+                        <h4>The Challenge</h4>
+                        <p>Design and deploy a multi-tenant SaaS application on Azure for student life management (courses, schedules, grades).</p>
+                        <h4>My Solution</h4>
+                        <ul>
+                            <li><strong>Microservices Architecture</strong> with Spring Boot for the backend</li>
+                            <li><strong>Responsive Angular Frontend</strong> with Material Design</li>
+                            <li><strong>MySQL Database</strong> on Azure Database for MySQL</li>
+                            <li><strong>Azure Deployment</strong>: App Service, Azure Container Registry, Azure DevOps</li>
+                            <li><strong>Secure Authentication</strong> with Azure AD B2C</li>
+                            <li><strong>CI/CD</strong> with Azure Pipelines for automatic deployment</li>
+                        </ul>
+                        <h4>Results</h4>
+                        <ul>
+                            <li>Scalable application supporting multiple institutions</li>
+                            <li>API response time under 200ms</li>
+                            <li>Intuitive interface for students and administrators</li>
+                        </ul>
+                    `
+                },
+                company: 'ESPRIT',
+                year: '2024',
+                media: { type: 'video', src: 'https://raw.githubusercontent.com/KBRIHAB/portfolio-rihab/main/video1.mp4' },
+                tech: ['Azure', 'Spring Boot', 'Angular', 'MySQL', 'Docker', 'Azure DevOps']
+            },
+            'project-url': {
+                fr: {
+                    title: 'Application ShortURL avec Extension Chrome',
+                    type: 'Stage d\'été',
+                    description: `
+                        <h4>Le Défi</h4>
+                        <p>Développer un service de raccourcissement d'URL complet avec analytics en temps réel et une extension navigateur pour une utilisation quotidienne simplifiée.</p>
+                        <h4>Ma Solution</h4>
+                        <ul>
+                            <li><strong>Backend .NET Core</strong> avec API RESTful haute performance</li>
+                            <li><strong>Frontend Angular</strong> avec dashboard analytique interactif</li>
+                            <li><strong>Extension Chrome</strong> pour raccourcir les URLs en un clic</li>
+                            <li><strong>Analytics temps réel</strong> : clics, géolocalisation, référents, appareils</li>
+                            <li><strong>Authentification JWT</strong> avec gestion des rôles utilisateurs</li>
+                            <li><strong>Base SQL Server</strong> optimisée pour les requêtes haute fréquence</li>
+                        </ul>
+                        <h4>Résultats</h4>
+                        <ul>
+                            <li>Temps de redirection inférieur à 50ms</li>
+                            <li>Dashboard avec graphiques interactifs Chart.js</li>
+                            <li>Support de liens personnalisés et QR codes</li>
+                        </ul>
+                    `
+                },
+                en: {
+                    title: 'ShortURL Application with Chrome Extension',
+                    type: 'Summer Internship',
+                    description: `
+                        <h4>The Challenge</h4>
+                        <p>Develop a complete URL shortening service with real-time analytics and a browser extension for simplified daily use.</p>
+                        <h4>My Solution</h4>
+                        <ul>
+                            <li><strong>.NET Core Backend</strong> with high-performance RESTful API</li>
+                            <li><strong>Angular Frontend</strong> with interactive analytics dashboard</li>
+                            <li><strong>Chrome Extension</strong> to shorten URLs in one click</li>
+                            <li><strong>Real-time Analytics</strong>: clicks, geolocation, referrers, devices</li>
+                            <li><strong>JWT Authentication</strong> with user role management</li>
+                            <li><strong>SQL Server Database</strong> optimized for high-frequency queries</li>
+                        </ul>
+                        <h4>Results</h4>
+                        <ul>
+                            <li>Redirect time under 50ms</li>
+                            <li>Dashboard with interactive Chart.js graphs</li>
+                            <li>Custom links and QR codes support</li>
+                        </ul>
+                    `
+                },
+                company: 'Consultim-IT',
+                year: '2023',
+                media: { type: 'carousel', images: ['C1.png', 'C2.png', 'C3.png', 'C4.png', 'C5.png', 'C6.png'] },
+                tech: ['.NET Core', 'Angular', 'SQL Server', 'JWT', 'Chrome Extension', 'Chart.js']
+            },
+            'project-hr': {
+                fr: {
+                    title: 'Système d\'Information RH (SIRH)',
+                    type: 'Stage PFE Licence',
+                    description: `
+                        <h4>Le Défi</h4>
+                        <p>Concevoir un système RH complet pour digitaliser tous les processus de gestion des ressources humaines d'une entreprise.</p>
+                        <h4>Ma Solution</h4>
+                        <ul>
+                            <li><strong>Module Employés</strong> : gestion des profils, contrats, documents</li>
+                            <li><strong>Module Absences</strong> : demandes, validation workflow, soldes congés</li>
+                            <li><strong>Module Recrutement</strong> : offres, candidatures, entretiens, scoring</li>
+                            <li><strong>Module Évaluations</strong> : objectifs, feedback 360°, rapports performance</li>
+                            <li><strong>Backend ASP.NET Core</strong> avec architecture en couches</li>
+                            <li><strong>Frontend React</strong> avec interface utilisateur moderne</li>
+                        </ul>
+                        <h4>Résultats</h4>
+                        <ul>
+                            <li>Digitalisation complète des processus RH</li>
+                            <li>Réduction de 60% des tâches administratives</li>
+                            <li>Tableaux de bord RH avec KPIs en temps réel</li>
+                        </ul>
+                    `
+                },
+                en: {
+                    title: 'HR Information System (HRIS)',
+                    type: 'Bachelor Final Year Internship',
+                    description: `
+                        <h4>The Challenge</h4>
+                        <p>Design a complete HR system to digitize all human resources management processes of a company.</p>
+                        <h4>My Solution</h4>
+                        <ul>
+                            <li><strong>Employee Module</strong>: profile management, contracts, documents</li>
+                            <li><strong>Absence Module</strong>: requests, workflow validation, leave balances</li>
+                            <li><strong>Recruitment Module</strong>: job offers, applications, interviews, scoring</li>
+                            <li><strong>Evaluation Module</strong>: objectives, 360° feedback, performance reports</li>
+                            <li><strong>ASP.NET Core Backend</strong> with layered architecture</li>
+                            <li><strong>React Frontend</strong> with modern user interface</li>
+                        </ul>
+                        <h4>Results</h4>
+                        <ul>
+                            <li>Complete digitization of HR processes</li>
+                            <li>60% reduction in administrative tasks</li>
+                            <li>HR dashboards with real-time KPIs</li>
+                        </ul>
+                    `
+                },
+                company: 'Axia Solutions',
+                year: '2022',
+                media: { type: 'carousel', images: ['A1.png', 'A2.png', 'A3.png', 'A4.png', 'A5.png', 'A6.png', 'A7.png', 'A8.png'] },
+                tech: ['ASP.NET Core', 'React', 'SQL Server', 'REST API', 'Entity Framework']
+            }
+        };
+
+        // Modal Functions
+        let currentCarouselIndex = 0;
+        let currentCarouselImages = [];
+
+        function openModal(projectId) {
+            const project = projectsData[projectId];
+            if (!project) return;
+
+            const langData = project[currentLang];
+            const overlay = document.getElementById('modal-overlay');
+            const mediaContainer = document.getElementById('modal-media');
+            const bodyContainer = document.getElementById('modal-body');
+
+            // Build media
+            if (project.media.type === 'video') {
+                mediaContainer.innerHTML = `
+                    <video controls autoplay style="width:100%;height:100%;object-fit:contain;background:#111;">
+                        <source src="${project.media.src}" type="video/mp4">
+                    </video>
+                `;
+            } else if (project.media.type === 'carousel') {
+                currentCarouselIndex = 0;
+                currentCarouselImages = project.media.images;
+                const imagesHtml = project.media.images.map((img, i) => `
+                    <div class="modal-carousel-item">
+                        <img src="https://raw.githubusercontent.com/KBRIHAB/portfolio-rihab/main/${img}" alt="Screenshot ${i+1}">
+                    </div>
+                `).join('');
+                mediaContainer.innerHTML = `
+                    <div class="modal-carousel">
+                        <div class="modal-carousel-inner" id="modalCarouselInner">${imagesHtml}</div>
+                        <button class="modal-carousel-btn prev" onclick="moveModalCarousel(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="modal-carousel-btn next" onclick="moveModalCarousel(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                `;
+            }
+
+            // Build body with translated content
+            const techHtml = project.tech.map(t => `<span class="modal-tech-tag">${t}</span>`).join('');
+            bodyContainer.innerHTML = `
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <h2><span>${langData.title}</span></h2>
+                        <div class="modal-meta">
+                            <span class="modal-meta-item"><i class="fas fa-building"></i> ${project.company}</span>
+                            <span class="modal-meta-item"><i class="fas fa-calendar"></i> ${project.year}</span>
+                            <span class="modal-meta-item"><i class="fas fa-tag"></i> ${langData.type}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-description">${langData.description}</div>
+                <div class="modal-tech">${techHtml}</div>
+            `;
+
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function moveModalCarousel(direction) {
+            currentCarouselIndex += direction;
+            if (currentCarouselIndex < 0) currentCarouselIndex = currentCarouselImages.length - 1;
+            if (currentCarouselIndex >= currentCarouselImages.length) currentCarouselIndex = 0;
+            document.getElementById('modalCarouselInner').style.transform = `translateX(-${currentCarouselIndex * 100}%)`;
+        }
+
+        // Close modal on overlay click
+        document.getElementById('modal-overlay').addEventListener('click', (e) => {
+            if (e.target.id === 'modal-overlay') closeModal();
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                const colors = ['#6c5ce7', '#00cec9', '#fd79a8'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Typing effect
+        let textIndex = 0, charIndex = 0, isDeleting = false;
+        const typingElement = document.getElementById('typingText');
+
+        function type() {
+            const typingTexts = typingTextsLang[currentLang];
+            const currentText = typingTexts[textIndex % typingTexts.length];
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            let typeSpeed = isDeleting ? 50 : 100;
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % typingTexts.length;
+                typeSpeed = 500;
+            }
+            setTimeout(type, typeSpeed);
+        }
+        type();
+
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => document.getElementById('navLinks').classList.remove('active'));
+        });
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('animated');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Form submission with Formspree
+        const FORMSPREE_ID = 'xrbndydj';
+
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const btn = document.getElementById('submitBtn');
+            const status = document.getElementById('formStatus');
+            const originalText = btn.innerHTML;
+
+            const sendingText = currentLang === 'fr' ? 'Envoi en cours...' : 'Sending...';
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${sendingText}`;
+            btn.disabled = true;
+            status.className = 'form-status';
+            status.style.display = 'none';
+
+            const formData = new FormData(e.target);
+
+            try {
+                const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    status.className = 'form-status success';
+                    const successMsg = currentLang === 'fr'
+                        ? 'Message envoyé avec succès! Je vous répondrai bientôt.'
+                        : 'Message sent successfully! I will reply soon.';
+                    status.innerHTML = `<i class="fas fa-check-circle"></i> ${successMsg}`;
+                    e.target.reset();
+                } else {
+                    throw new Error('Erreur');
+                }
+            } catch (error) {
+                status.className = 'form-status error';
+                const errorMsg = currentLang === 'fr'
+                    ? 'Erreur. Envoyez directement à: kaibii.rihab@gmail.com'
+                    : 'Error. Send directly to: kaibii.rihab@gmail.com';
+                status.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${errorMsg}`;
+            }
+
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
+
+        // Language Switcher Function
+        function setLanguage(lang) {
+            currentLang = lang;
+
+            // Update button states
+            document.getElementById('langFr').classList.toggle('active', lang === 'fr');
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // Update all elements with data-lang attributes
+            document.querySelectorAll('[data-lang-fr]').forEach(el => {
+                const frText = el.getAttribute('data-lang-fr');
+                const enText = el.getAttribute('data-lang-en');
+
+                // Check if element has child span (for buttons/badges with icons)
+                const childSpan = el.querySelector('span:not([data-lang-fr])');
+                if (childSpan && !el.classList.contains('section-title')) {
+                    childSpan.textContent = lang === 'fr' ? frText : enText;
+                } else if (el.tagName === 'H1') {
+                    // Special handling for hero h1
+                    el.innerHTML = (lang === 'fr' ? frText : enText) + ' <span>Rihab Kaibi</span>';
+                } else if (el.classList.contains('section-title')) {
+                    // Special handling for section titles with nested spans
+                    const nestedSpan = el.querySelector('span[data-lang-fr]');
+                    if (nestedSpan) {
+                        const spanFr = nestedSpan.getAttribute('data-lang-fr');
+                        const spanEn = nestedSpan.getAttribute('data-lang-en');
+                        el.childNodes[0].textContent = (lang === 'fr' ? frText : enText) + ' ';
+                        nestedSpan.textContent = lang === 'fr' ? spanFr : spanEn;
+                    }
+                } else if (el.tagName === 'P' && el.classList.contains('hero-description')) {
+                    el.textContent = lang === 'fr' ? frText : enText;
+                } else if (!el.querySelector('span[data-lang-fr]')) {
+                    el.textContent = lang === 'fr' ? frText : enText;
+                }
+            });
+
+            // Update placeholders
+            document.querySelectorAll('[data-lang-placeholder-fr]').forEach(el => {
+                const frText = el.getAttribute('data-lang-placeholder-fr');
+                const enText = el.getAttribute('data-lang-placeholder-en');
+                el.placeholder = lang === 'fr' ? frText : enText;
+            });
+
+            // Update footer with emoji
+            const footerP = document.querySelector('footer p');
+            if (footerP) {
+                footerP.innerHTML = lang === 'fr'
+                    ? '© 2025 Rihab Kaibi. Créé avec <span>❤</span> et beaucoup de ☕'
+                    : '© 2025 Rihab Kaibi. Made with <span>❤</span> and lots of ☕';
+            }
+
+            // Store preference
+            localStorage.setItem('portfolio-lang', lang);
+        }
+
+        // Load saved language preference
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('portfolio-lang');
+            if (savedLang && savedLang !== currentLang) {
+                setLanguage(savedLang);
+            }
+        });
+    </script>
+</body>
+</html>
