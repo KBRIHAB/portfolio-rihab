@@ -471,6 +471,8 @@
             position: relative;
         }
         .modal-media video,
+        .modal-media iframe,
+
         .modal-media img {
             width: 100%;
             height: 100%;
@@ -1324,7 +1326,7 @@
                 year: '2025',
                 media: {
                 type: 'video',
-                src: 'https://www.youtube.com/embed/z4koMEBK1SE'
+                src: 'https://www.youtube-nocookie.com/embed/z4koMEBK1SE'
 },
                 tech: ['OpenStack', 'Kubernetes', 'Docker', 'GitLab CI/CD', 'Odoo 17', 'Python', 'Helm', 'Prometheus', 'Grafana', 'Kolla-Ansible']
             },
@@ -1481,7 +1483,7 @@
                 year: '2024',
                media: {
                 type: 'video',
-                 src: 'https://www.youtube.com/embed/7o9UeSbGoVc'
+                 src: 'https://www.youtube-nocookie.com/embed/7o9UeSbGoVc'
 },
 
 
@@ -1612,16 +1614,15 @@
 
     // ✅ MEDIA
     if (project.media.type === 'video') {
-        mediaContainer.innerHTML = `
-            <iframe
-                width="100%"
-                height="400"
-                src="${project.media.src}"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
-        `;
+       mediaContainer.innerHTML = `
+  <iframe
+    src="${project.media.src}"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    referrerpolicy="strict-origin-when-cross-origin">
+  </iframe>
+`;
+
     } 
     else if (project.media.type === 'carousel') {
         currentCarouselIndex = 0;
