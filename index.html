@@ -1324,7 +1324,7 @@
                 year: '2025',
                 media: {
                 type: 'video',
-                src: 'https://www.youtube.com/watch?v=z4koMEBK1SE'
+                src: 'https://www.youtube.com/embed/z4koMEBK1SE'
 },
                 tech: ['OpenStack', 'Kubernetes', 'Docker', 'GitLab CI/CD', 'Odoo 17', 'Python', 'Helm', 'Prometheus', 'Grafana', 'Kolla-Ansible']
             },
@@ -1597,59 +1597,80 @@
         let currentCarouselIndex = 0;
         let currentCarouselImages = [];
 
-        function openModal(projectId) {
-            const project = projectsData[projectId];
-            if (!project) return;
+       function openModal(projectId) {
 
-            const langData = project[currentLang];
-            const overlay = document.getElementById('modal-overlay');
-            const mediaContainer = document.getElementById('modal-media');
-            const bodyContainer = document.getElementById('modal-body');
+    const project = projectsData[projectId];
+    if (!project) return;
 
-            // Build media
-            if (project.media.type === 'video') {
-                mediaContainer.innerHTML = `
-                    <video controls autoplay style="width:100%;height:100%;object-fit:contain;background:#111;">
-                        <source src="${project.media.src}" type="video/mp4">
-                    </video>
-                `;
-            } else if (project.media.type === 'carousel') {
-                currentCarouselIndex = 0;
-                currentCarouselImages = project.media.images;
-                const imagesHtml = project.media.images.map((img, i) => `
-                    <div class="modal-carousel-item">
-                        <img src="https://raw.githubusercontent.com/KBRIHAB/portfolio-rihab/main/${img}" alt="Screenshot ${i+1}">
-                    </div>
-                `).join('');
-                mediaContainer.innerHTML = `
-                    <div class="modal-carousel">
-                        <div class="modal-carousel-inner" id="modalCarouselInner">${imagesHtml}</div>
-                        <button class="modal-carousel-btn prev" onclick="moveModalCarousel(-1)"><i class="fas fa-chevron-left"></i></button>
-                        <button class="modal-carousel-btn next" onclick="moveModalCarousel(1)"><i class="fas fa-chevron-right"></i></button>
-                    </div>
-                `;
-            }
+    const langData = project[currentLang];
+    const overlay = document.getElementById('modal-overlay');
+    const mediaContainer = document.getElementById('modal-media');
+    const bodyContainer = document.getElementById('modal-body');
 
-            // Build body with translated content
-            const techHtml = project.tech.map(t => `<span class="modal-tech-tag">${t}</span>`).join('');
-            bodyContainer.innerHTML = `
-                <div class="modal-header">
-                    <div class="modal-title">
-                        <h2><span>${langData.title}</span></h2>
-                        <div class="modal-meta">
-                            <span class="modal-meta-item"><i class="fas fa-building"></i> ${project.company}</span>
-                            <span class="modal-meta-item"><i class="fas fa-calendar"></i> ${project.year}</span>
-                            <span class="modal-meta-item"><i class="fas fa-tag"></i> ${langData.type}</span>
-                        </div>
-                    </div>
+    // Nettoyer le media
+    mediaContainer.innerHTML = '';
+
+    // ✅ MEDIA
+    if (project.media.type === 'video') {
+        mediaContainer.innerHTML = `
+            <iframe
+                width="100%"
+                height="400"
+                src="${project.media.src}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        `;
+    } 
+    else if (project.media.type === 'carousel') {
+        currentCarouselIndex = 0;
+        currentCarouselImages = project.media.images;
+
+        const imagesHtml = project.media.images.map((img, i) => `
+            <div class="modal-carousel-item">
+                <img src="https://raw.githubusercontent.com/KBRIHAB/Portfolio-RihabKaibi/main/${img}" alt="Screenshot ${i + 1}">
+            </div>
+        `).join('');
+
+        mediaContainer.innerHTML = `
+            <div class="modal-carousel">
+                <div class="modal-carousel-inner" id="modalCarouselInner">
+                    ${imagesHtml}
                 </div>
-                <div class="modal-description">${langData.description}</div>
-                <div class="modal-tech">${techHtml}</div>
-            `;
+                <button class="modal-carousel-btn prev" onclick="moveModalCarousel(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="modal-carousel-btn next" onclick="moveModalCarousel(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        `;
+    }
 
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+    // ✅ BODY
+    const techHtml = project.tech.map(t => `<span class="modal-tech-tag">${t}</span>`).join('');
+
+    bodyContainer.innerHTML = `
+        <div class="modal-header">
+            <div class="modal-title">
+                <h2>${langData.title}</h2>
+                <div class="modal-meta">
+                    <span><i class="fas fa-building"></i> ${project.company}</span>
+                    <span><i class="fas fa-calendar"></i> ${project.year}</span>
+                    <span><i class="fas fa-tag"></i> ${langData.type}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-description">${langData.description}</div>
+        <div class="modal-tech">${techHtml}</div>
+    `;
+
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
 
         function closeModal() {
             document.getElementById('modal-overlay').classList.remove('active');
